@@ -1,10 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>profile imge</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARK 2.0 download</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00fff7;
+}
+
+/* Fullscreen Gradient Background */
+#introAnimation {
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background: linear-gradient(270deg, #0a0f33, #330a0a, #0a0f33, #330a0a);
+  background-size: 800% 800%;
+  animation: gradientMove 12s ease infinite;
+  z-index:10;
+  overflow:hidden;
+}
+
+@keyframes gradientMove {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: linear-gradient(45deg,#00fff7,#ff0055,#ff00ff);
+  border-radius:50%;
+  opacity:0.8;
+  animation: floatParticle linear infinite;
+  box-shadow: 0 0 8px #00fff7,0 0 15px #ff0055;
+}
+
+@keyframes floatParticle {
+  0% { transform: translateY(100vh) translateX(0) scale(0.3); opacity:0.6; }
+  50% { opacity:0.9; }
+  100% { transform: translateY(-50px) translateX(60px) scale(1); opacity:0; }
+}
+
+/* Intro Text */
+#introAnimation h1 {
+  font-size: 32px;
+  color: #00fff7;
+  text-shadow: 0 0 15px #00fff7,0 0 25px #ff0055,0 0 40px #ff00ff;
+  animation: textFlicker 1.5s infinite alternate;
+  z-index:5;
+}
+
+@keyframes textFlicker {
+  0% {opacity:1;}
+  50% {opacity:0.7;}
+  100% {opacity:1;}
+}
+
+/* Profile Section */
+#profileSection {
+  display:none;
+  flex-direction: column;
+  align-items: center;
+  opacity:0;
+  z-index:11;
+}
+
+#profileSection.show {
+  display:flex;
+  animation: profileFade 1.5s forwards;
+}
+
+@keyframes profileFade {
+  0% {opacity:0; transform: scale(0.8);}
+  60% {opacity:1; transform: scale(1.05);}
+  100% {opacity:1; transform: scale(1);}
+}
+
+/* Subscribe Button */
+#subscribeBtn {
+  padding:16px 30px;
+  font-size:18px;
+  font-weight:bold;
+  color:black;
+  background:#ff0055;
+  border-radius:30px;
+  box-shadow:0 0 15px #ff0055,0 0 25px #ff00ff;
+  cursor:pointer;
+  opacity:0;
+  transition:0.3s, transform 0.3s;
+}
+
+#subscribeBtn.show {
+  opacity:1;
+  animation: btnBounce 1s forwards;
+}
+
+@keyframes btnBounce {
+  0% { transform: scale(0.7); opacity:0;}
+  60% { transform: scale(1.1); opacity:1;}
+  100% { transform: scale(1);}
+}
+
+#subscribeBtn:hover {
+  background:#ff3388;
+  box-shadow:0 0 25px #ff0055,0 0 50px #ff00ff;
+  transform: scale(1.1);
+}
+
+/* Links Section */
+#linksSection {
+  display:none;
+  margin-top:20px;
+  flex-direction: column;
+  align-items: center;
+  width: 90%; max-width:400px;
+}
+
+.link-btn {
+  display:block;
+  width: 90%; max-width:400px;
+  text-align:center;
+  margin: 10px 0; padding:20px;
+  font-size: 20px; font-weight:bold;
+  color:black; border-radius:30px;
+  text-decoration:none;
+  background:#00fff7;
+  box-shadow:0 0 15px #00fff7,0 0 25px #ff00ff;
+  transition:0.3s, transform 0.3s;
+}
+
+.link-btn:hover {
+  background:#00c2bd;
+  box-shadow:0 0 25px #00fff7,0 0 50px #ff00ff;
+  transform: scale(1.05);
+}
+</style>
 </head>
+
 <body>
-  <img src="adgamer.png" alt="adgamer"
-  width="200px" height="200px" >
+
+<!-- Intro Animation -->
+<div id="introAnimation">
+  <h1>hey guys</h1>
+</div>
+
+<!-- Profile Section (NO IMAGE) -->
+<div id="profileSection">
+  <button id="subscribeBtn">Subscribe</button>
+  <div id="linksSection">
+    <a href="https://drive.google.com/file/d/16Q3RQiz_WAV8ZbY_tRkzcbN-_8FrfMY4/view" class="link-btn" target="_blank">APK</a>
+    <a href="https://drive.google.com/file/d/16MhKp5X9iZ4BWLe91zHyKBeCLcLVdUvR/view" class="link-btn" target="_blank">Main File 1</a>
+    <a href="https://drive.google.com/file/d/16NSrVnOvKqFtuJuLHvKdndI3Ce38pY5Z/view" class="link-btn" target="_blank">Main File 2</a>
+  </div>
+</div>
+
+<script>
+// Create particles
+const intro = document.getElementById('introAnimation');
+for(let i=0;i<40;i++){
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  p.style.left = Math.random()*100 + 'vw';
+  p.style.animationDuration = (2+Math.random()*4)+'s';
+  p.style.width = 2 + Math.random()*6 + 'px';
+  p.style.height = p.style.width;
+  intro.appendChild(p);
+}
+
+// Show profile after intro
+const profile = document.getElementById('profileSection');
+const subscribeBtn = document.getElementById('subscribeBtn');
+const linksSection = document.getElementById('linksSection');
+
+setTimeout(()=>{
+  intro.style.opacity = 0;
+  setTimeout(()=>{ intro.style.display='none'; },800);
+  profile.classList.add('show');
+  subscribeBtn.classList.add('show');
+},3000);
+
+// Show links on subscribe click and hide button
+subscribeBtn.addEventListener('click',()=>{
+  linksSection.style.display = 'flex';
+  subscribeBtn.style.display = 'none';  // Hide button after click
+});
+</script>
+
 </body>
 </html>
